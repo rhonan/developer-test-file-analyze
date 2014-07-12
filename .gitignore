@@ -15,3 +15,6 @@ hs_err_pid*
 .classpath
 .project
 .settings
+
+#Mac OS files
+.DS_Store
