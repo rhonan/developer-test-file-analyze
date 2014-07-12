@@ -128,6 +128,15 @@ public class AnalisadorRelatorioImpl implements IAnalisadorRelatorio {
 		return tiposOrdenadosNumerosEventosDecrescente;
 	}
 
+	/* Achei a descrição deste método um pouco difícil de se entender,
+	 * primeiro pensei que deveria verificar os alarmes em geral sem restrições
+	 * de cliente, pois a descrição do mesmo não falava nada sobre cliente.
+	 * Pensando assim todos os eventos de desarmes entrariam nesta lista, o que
+	 * não bate com o teste implementado... Após quebrar a cabeça um pouco
+	 * pensando sobre as possíveis restrições deste método, acabei considerando
+	 * que deveria verificar separando por clientes, desta forma acabei
+	 * conseguindo fazer com que o teste obtivesse sucesso */
+	
 	public List<Integer> getCodigoSequencialEventosDesarmeAposAlarme() {
 		List<Integer> codigoSequencialEventosDesarmeAposAlarme = new ArrayList<Integer>();
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -139,8 +148,6 @@ public class AnalisadorRelatorioImpl implements IAnalisadorRelatorio {
 				brAux = new BufferedReader(new FileReader(caminho));
 				while((linhaAux = brAux.readLine()) != null){
 					String[] linhaVetorAux = linhaAux.split(split);
-					System.out.println("VA"+vetorAux[0]);
-					System.out.println("LVA"+linhaVetorAux[0]);
 					if(vetorAux[1].equals(linhaVetorAux[1]) && vetorAux[3].equals("ALARME") && linhaVetorAux[3].equals("DESARME")){
 						Date horaDesarme = (Date) formatter.parse(linhaVetorAux[4]);
 						Date horaAlarme = (Date) formatter.parse(vetorAux[4]);
